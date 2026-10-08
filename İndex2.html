@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geleceğin Yazılımcısı | DevFuture 2030</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f3ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            900: '#1e1b4b',
+                        },
+                        cyan: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                        },
+                        emerald: {
+                            400: '#34d399',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 3s infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%': { boxShadow: '0 0 15px rgba(99, 102, 241, 0.2)' },
+                            '100%': { boxShadow: '0 0 35px rgba(34, 211, 238, 0.5)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Custom Custom Glow & Glassmorphism Effects */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-panel-hover:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.3);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 50%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-cyan {
+            background: linear-gradient(135deg, #38bdf8 0%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-[#070a12] text-slate-100 font-sans antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="p-2.5 bg-indigo-600/20 border border-indigo-500/40 rounded-xl text-indigo-400">
+                    <i data-lucide="cpu" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-white">DEV<span class="text-gradient">FUTURE</span></span>
+                    <span class="text-xs block text-slate-400 font-mono">VISION 2030+</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#hero" class="hover:text-indigo-400 transition-colors">Ana Sayfa</a>
+                <a href="#shift-matrix" class="hover:text-indigo-400 transition-colors">Rol Evrimi</a>
+                <a href="#synergy" class="hover:text-indigo-400 transition-colors">AI vs İnsan Sinerjisi</a>
+                <a href="#skills-radar" class="hover:text-indigo-400 transition-colors">Beceri Radarı</a>
+                <a href="#career-quiz" class="hover:text-indigo-400 transition-colors">Kariyer Danışmanı</a>
+                <a href="#trends" class="hover:text-indigo-400 transition-colors">Gelecek Trendleri</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <a href="#synergy" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/30">
+                    <i data-lucide="sparkles" class="w-4 h-4 mr-2"></i> Analizi Başlat
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <section id="hero" class="relative py-20 lg:py-28 overflow-hidden">
+            <!-- Background Elements -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+            <div class="absolute top-1/3 right-10 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Hero Text -->
+                    <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-300 text-xs font-semibold uppercase tracking-wider">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                            Yazılım Mühendisliğinde Yeni Dönem
+                        </div>
+                        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                            Yazılımcıların Geleceği: <br>
+                            <span class="text-gradient">İnsan, AI ve Ötesi</span>
+                        </h1>
+                        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            Kod yazmak artık nihai hedef değil, fikirleri gerçeğe dönüştürmenin başlangıcı. Yapay zeka çağında yazılım geliştiricinin rolu "kod yazandan", "sistem mimarı ve vizyoner yöneticiye" dönüşüyor.
+                        </p>
+
+                        <!-- Dynamic Stats -->
+                        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800">
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono" id="stat-ai-code">82%</div>
+                                <div class="text-xs text-slate-400 mt-1">2030 AI Tarafından Üretilen Kod</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono" id="stat-productivity">4.5x</div>
+                                <div class="text-xs text-slate-400 mt-1">Geliştirici Üretkenlik Artışı</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-extrabold text-indigo-400 font-mono" id="stat-new-roles">12+</div>
+                                <div class="text-xs text-slate-400 mt-1">Yeni Uzmanlık Alanı</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Code / Prompt Agent Interactive Box -->
+                    <div class="lg:col-span-5">
+                        <div class="glass-panel rounded-2xl p-6 border border-slate-800 shadow-2xl relative">
+                            <div class="flex items-center justify-between pb-4 border-b border-slate-800/80">
+                                <div class="flex space-x-2">
+                                    <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                                </div>
+                                <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                                    <i data-lucide="bot" class="w-3.5 h-3.5 text-cyan-400"></i> AI Agent Runtime v4.2
+                                </span>
+                            </div>
+
+                            <div class="mt-4 font-mono text-xs sm:text-sm space-y-3 min-h-[260px]">
+                                <div class="text-slate-400">
+                                    <span class="text-indigo-400 font-semibold">[Architect]:</span> Mikroservis mimarisi oluştur ve güvenliği optimize et.
+                                </div>
+                                <div class="p-3 bg-slate-950/60 rounded-lg border border-slate-800 text-slate-300 space-y-2">
+                                    <div class="flex items-center gap-2 text-cyan-400">
+                                        <i data-lucide="loader" class="w-4 h-4 animate-spin"></i>
+                                        <span>AI Agent yanıt üretiyor...</span>
+                                    </div>
+                                    <p class="text-slate-400 text-xs">
+                                        ✔ Veri modelleri ve API şemaları tasarlandı.<br>
+                                        ✔ Zero-trust güvenlik protokolü entegre edildi.<br>
+                                        ✔ Otomatik birim testleri ve CI/CD pipeline'ı hazırlandı.
+                                    </p>
+                                </div>
+                                <div class="p-3 bg-emerald-950/30 border border-emerald-500/30 rounded-lg text-emerald-300 text-xs flex items-start gap-2">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 shrink-0"></i>
+                                    <span>İnsan Mimar Onayı Verildi: Kod %100 dayanıklı, canlı ortama taşınabilir.</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                                <span>Odak: <strong class="text-slate-200">Strateji & Mantık</strong></span>
+                                <span class="text-indigo-400 font-semibold">Gelecek Modu: AKTİF</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="shift-matrix" class="py-20 bg-slate-950/50 border-y border-slate-800/60 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-2">Zaman İçinde Yazılımcı Rolleri</h2>
+                    <h3 class="text-3xl sm:text-4xl font-bold text-white">Yazılım Mühendisliğinin Dönüşüm Matrixi</h3>
+                    <p class="text-slate-400 mt-4">Geçmişin manuel kodlama mantığından, geleceğin yapay zeka ile senkronize çalışan mimari liderliğe evrimi.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Past -->
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-800/80 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-slate-800/20 rounded-bl-full pointer-events-none"></div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-xs font-mono px-3 py-1 bg-slate-800 text-slate-300 rounded-full">2010 - 2020</span>
+                            <i data-lucide="code-2" class="w-6 h-6 text-slate-400"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-2">Geleneksel Kodlayıcı</h4>
+                        <p class="text-sm text-slate-400 mb-6">Syntax ezberleme, manuel syntax yazımı, standart CRUD geliştirmeleri ve kütüphane bağlama ön plandaydı.</p>
+                        <ul class="space-y-2.5 text-xs text-slate-300 font-mono">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-slate-500"></i> Satır satır kod yazımı</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-slate-500"></i> Manuel Debugging</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-slate-500"></i> Standart Framework Bilgisi</li>
+                        </ul>
+                    </div>
+
+                    <!-- Present -->
+                    <div class="glass-panel p-6 rounded-2xl border border-indigo-500/40 relative overflow-hidden shadow-lg shadow-indigo-950/50">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-600/10 rounded-bl-full pointer-events-none"></div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-xs font-mono px-3 py-1 bg-indigo-900/60 text-indigo-300 border border-indigo-500/30 rounded-full">GÜNÜMÜZ (2024-2026)</span>
+                            <i data-lucide="sparkles" class="w-6 h-6 text-indigo-400"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-2">AI-Destekli Geliştirici</h4>
+                        <p class="text-sm text-slate-400 mb-6">Copilot ve LLM araçları ile hızlı kod tamamlama, boilerplate oluşturma ve kod inceleme safhası.</p>
+                        <ul class="space-y-2.5 text-xs text-slate-300 font-mono">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-400"></i> Prompt ile hızlı prototipleme</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-400"></i> Otomatik Test Üretimi</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-400"></i> AI-İnsan Kod İncelemesi</li>
+                        </ul>
+                    </div>
+
+                    <!-- Future -->
+                    <div class="glass-panel p-6 rounded-2xl border border-cyan-500/40 relative overflow-hidden shadow-lg shadow-cyan-950/30">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-bl-full pointer-events-none"></div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-xs font-mono px-3 py-1 bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 rounded-full">GELECEK (2030+)</span>
+                            <i data-lucide="brain-circuit" class="w-6 h-6 text-cyan-400"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-2">AI Sistem Mimarı & Ororkestratör</h4>
+                        <p class="text-sm text-slate-400 mb-6">Otonom yapay zeka ajanlarını yönetme, iş mantığı doğrulaması, etik, güvenlik ve karmaşık sistem tasarımı.</p>
+                        <ul class="space-y-2.5 text-xs text-slate-300 font-mono">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Multi-Agent Orkestrasyonu</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Siber Dayanıklılık & Güvenlik</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> AI Etik & Güvenilirlik Ajanı</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="synergy" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider">
+                            <i data-lucide="sliders" class="w-3.5 h-3.5"></i> Etkileşimli Araç
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">İnsan vs. AI Sinerji Analizörü</h2>
+                        <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+                            2030 yılına kadar yazılım süreçlerindeki görevlerin ne kadarı yapay zeka tarafından otomatize edilecek, ne kadarı insan stratejisi gerektirecek? Görev kategorilerini özelleştirerek dağılımı görün.
+                        </p>
+
+                        <!-- Interactive Control Sliders/Toggles -->
+                        <div class="space-y-4 pt-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-mono text-slate-300 mb-1">
+                                    <span>Boilerplate Kod & Şablonlar</span>
+                                    <span id="label-task-1" class="text-cyan-400">%90 AI / %10 İnsan</span>
+                                </div>
+                                <input type="range" id="task-1" min="10" max="95" value="90" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-mono text-slate-300 mb-1">
+                                    <span>Sistem Mimarisi & Karar Anı</span>
+                                    <span id="label-task-2" class="text-indigo-400">%30 AI / %70 İnsan</span>
+                                </div>
+                                <input type="range" id="task-2" min="10" max="95" value="30" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-mono text-slate-300 mb-1">
+                                    <span>Hata Ayıklama & Performans</span>
+                                    <span id="label-task-3" class="text-cyan-400">%75 AI / %25 İnsan</span>
+                                </div>
+                                <input type="range" id="task-3" min="10" max="95" value="75" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-mono text-slate-300 mb-1">
+                                    <span>Kullanıcı Deneyimi & İş Mantığı</span>
+                                    <span id="label-task-4" class="text-indigo-400">%40 AI / %60 İnsan</span>
+                                </div>
+                                <input type="range" id="task-4" min="10" max="95" value="40" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Display -->
+                    <div class="lg:col-span-7">
+                        <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 relative">
+                            <h3 class="text-lg font-bold text-white mb-6 flex items-center justify-between">
+                                <span>2030 Görev Dağılım Tahmini</span>
+                                <span class="text-xs font-normal text-slate-400 font-mono">Dinamik Hesaplama</span>
+                            </h3>
+                            <div class="relative h-[320px]">
+                                <canvas id="synergyChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="skills-radar" class="py-20 bg-slate-950/50 border-y border-slate-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-2">Yetkinlik Mimarisi</h2>
+                    <h3 class="text-3xl sm:text-4xl font-bold text-white">Geleceğin Yazılımcı Becerileri Radarı</h3>
+                    <p class="text-slate-400 mt-4">Syntactical (dil bilgisi) uzmanlığı azalırken, sistem düşüncesi ve iş alan bilgisi en değerli yetenek haline geliyor.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Skills Radar Chart -->
+                    <div class="lg:col-span-6 flex justify-center">
+                        <div class="glass-panel p-6 rounded-2xl border border-slate-800 w-full max-w-md h-[380px] flex items-center justify-center">
+                            <canvas id="skillsRadarChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Skills List -->
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="glass-panel p-4 rounded-xl border border-slate-800/80 flex items-start gap-4">
+                            <div class="p-3 bg-indigo-600/20 text-indigo-400 rounded-lg shrink-0">
+                                <i data-lucide="network" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">Sistem Düşüncesi & Mimari</h4>
+                                <p class="text-xs text-slate-400 mt-1">Karmaşık mikroservislerin, AI ajanlarının ve dağıtık sistemlerin birbirleriyle güvenli iletişim kurmasını sağlama.</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-4 rounded-xl border border-slate-800/80 flex items-start gap-4">
+                            <div class="p-3 bg-cyan-600/20 text-cyan-400 rounded-lg shrink-0">
+                                <i data-lucide="terminal" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">AI Prompt & Agent Muhendisliği</h4>
+                                <p class="text-xs text-slate-400 mt-1">Yapay zeka modellerini doğru yönlendirme, hassas bağlam (context window) yönetimi ve multi-agent mimarisi kurgulama.</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-4 rounded-xl border border-slate-800/80 flex items-start gap-4">
+                            <div class="p-3 bg-emerald-600/20 text-emerald-400 rounded-lg shrink-0">
+                                <i data-lucide="shield-check" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">Siber Güvenlik & AI Etiği</h4>
+                                <p class="text-xs text-slate-400 mt-1">AI tarafından üretilen kodlardaki güvenlik açıklarını tespit etme ve veri gizliliği standartlarını koruma.</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-4 rounded-xl border border-slate-800/80 flex items-start gap-4">
+                            <div class="p-3 bg-purple-600/20 text-purple-400 rounded-lg shrink-0">
+                                <i data-lucide="briefcase" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">Sektörel Alan Bilgisi (Domain Expertise)</h4>
+                                <p class="text-xs text-slate-400 mt-1">Fintech, Sağlık veya Biyoteknoloji gibi alanların iş kurallarını iyi bilip bunu yazılımsal çözümlere dönüştürebilme.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="career-quiz" class="py-20 relative">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Kişiselleştirilmiş Yol Haritası</span>
+                    <h2 class="text-3xl font-bold text-white mt-1">Gelecekteki Rolünü Keşfet</h2>
+                    <p class="text-slate-400 text-sm mt-2">Mevcut ilgi alanlarına ve güçlü yönlerine göre 2030'daki ideal yazılım uzmanlığını bul.</p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl border border-slate-800 shadow-2xl relative" id="quiz-container">
+                    <!-- Step 1 -->
+                    <div id="quiz-step-1" class="space-y-6">
+                        <div class="flex justify-between items-center text-xs font-mono text-slate-400 pb-4 border-b border-slate-800">
+                            <span>Soru 1 / 3</span>
+                            <span>DevFuture Matcher</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white">En çok hangi süreçte vakit geçirmekten keyif alıyorsun?</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button onclick="nextQuizStep(1, 'arch')" class="p-4 bg-slate-900/80 hover:bg-indigo-950/50 border border-slate-800 hover:border-indigo-500/50 rounded-xl text-left transition-all text-slate-300 hover:text-white">
+                                <div class="font-semibold text-sm">Sistem Mimarisi & Tasarım</div>
+                                <div class="text-xs text-slate-400 mt-1">Büyük resmi görmek, veritabanı ve servis kurgulamak.</div>
+                            </button>
+                            <button onclick="nextQuizStep(1, 'ai')" class="p-4 bg-slate-900/80 hover:bg-indigo-950/50 border border-slate-800 hover:border-indigo-500/50 rounded-xl text-left transition-all text-slate-300 hover:text-white">
+                                <div class="font-semibold text-sm">AI Araçları & Model Eğitimi</div>
+                                <div class="text-xs text-slate-400 mt-1">Yapay zeka sistemleri ile etkileşim ve otomasyon.</div>
+                            </button>
+                            <button onclick="nextQuizStep(1, 'sec')" class="p-4 bg-slate-900/80 hover:bg-indigo-950/50 border border-slate-800 hover:border-indigo-500/50 rounded-xl text-left transition-all text-slate-300 hover:text-white">
+                                <div class="font-semibold text-sm">Güvenlik & Kod Analizi</div>
+                                <div class="text-xs text-slate-400 mt-1">Açıkları tespit etmek, kodun sağlamlığını garantilemek.</div>
+                            </button>
+                            <button onclick="nextQuizStep(1, 'ux')" class="p-4 bg-slate-900/80 hover:bg-indigo-950/50 border border-slate-800 hover:border-indigo-500/50 rounded-xl text-left transition-all text-slate-300 hover:text-white">
+                                <div class="font-semibold text-sm">Ürün Deneyimi & İş Mantığı</div>
+                                <div class="text-xs text-slate-400 mt-1">Kullanıcı ihtiyaçlarını anlama ve çözüme kavuşturma.</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 (Hidden by default) -->
+                    <div id="quiz-step-2" class="space-y-6 hidden">
+                        <div class="flex justify-between items-center text-xs font-mono text-slate-400 pb-4 border-b border-slate-800">
+                            <span>Soru 2 / 3</span>
+                            <span>DevFuture Matcher</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white">Kod yazarken en çok hangi yardıma ihtiyaç duyuyorsun?</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button onclick="nextQuizStep(2, 'speed')" class="p-4 bg-slate-900/80 hover:bg-indigo-950/50 border border-slate-800 hover:border-indigo-500/50 rounded-xl text-left transition-all text-slate-300 hover:text-white">
+                                <div class="font-semibold text-sm">Hızlı Taslak Üretimi</div>
+                                <div class="text-xs text-slate-400 mt-1">Tekrarlayan boilerplate kodların otomatik oluşması.</div>
+                            </button>
+                            <button onclick="nextQuizStep(2, 'opt')" class="p-4 bg-slate-900/80 hover:bg-indigo-950/50 border border-slate-800 hover:border-indigo-500/50 rounded-xl text-left transition-all text-slate-300 hover:text-white">
+                                <div class="font-semibold text-sm">Performans & Derleme Optimize Etme</div>
+                                <div class="text-xs text-slate-400 mt-1">Sistem kaynaklarını ve hız optimize edicilerini yönetme.</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 (Hidden by default) -->
+                    <div id="quiz-step-3" class="space-y-6 hidden">
+                        <div class="flex justify-between items-center text-xs font-mono text-slate-400 pb-4 border-b border-slate-800">
+                            <span>Soru 3 / 3</span>
+                            <span>DevFuture Matcher</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white">Gelecekte yazılım ekibinde hangi pozisyonda olmak istersin?</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button onclick="finishQuiz('AI Agent Director')" class="p-4 bg-slate-900/80 hover:bg-indigo-950/50 border border-slate-800 hover:border-indigo-500/50 rounded-xl text-left transition-all text-slate-300 hover:text-white">
+                                <div class="font-semibold text-sm">Yapay Zeka Ajan Direktörü</div>
+                                <div class="text-xs text-slate-400 mt-1">Ajan ordusunu yöneten lider geliştirici.</div>
+                            </button>
+                            <button onclick="finishQuiz('Cyber-Resilience Specialist')" class="p-4 bg-slate-900/80 hover:bg-indigo-950/50 border border-slate-800 hover:border-indigo-500/50 rounded-xl text-left transition-all text-slate-300 hover:text-white">
+                                <div class="font-semibold text-sm">Siber Dayanıklılık Uzmanı</div>
+                                <div class="text-xs text-slate-400 mt-1">Güvenli, kırılmaz sistemlerin mimarı.</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Result -->
+                    <div id="quiz-result" class="hidden space-y-6 text-center py-4">
+                        <div class="w-16 h-16 bg-indigo-600/20 border border-indigo-500/40 rounded-full flex items-center justify-center mx-auto text-indigo-400">
+                            <i data-lucide="award" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">Senin İçin İdeal Gelecek Rolü:</h3>
+                        <div class="text-3xl font-extrabold text-gradient-cyan font-mono" id="result-role-title">AI System & Agent Architect</div>
+                        <p class="text-sm text-slate-300 max-w-lg mx-auto" id="result-role-desc">
+                            Yapay zeka otonom ajanlarını orkestre eden, sistem seviyesinde kararlar alan ve iş hedeflerini teknik mimariye dönüştüren kilit lider olacaksın.
+                        </p>
+                        <button onclick="resetQuiz()" class="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs rounded-lg transition-all">
+                            Testi Tekrar Et
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trends" class="py-20 bg-slate-950/50 border-t border-slate-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Vizyon & Teknoloji</span>
+                        <h2 class="text-3xl font-bold text-white mt-1">Gelecek Trendleri & Öngörüler</h2>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="flex space-x-2 mt-4 md:mt-0" id="trend-filters">
+                        <button onclick="filterTrends('all')" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-indigo-600 text-white">Tümü</button>
+                        <button onclick="filterTrends('ai')" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">AI Ajanları</button>
+                        <button onclick="filterTrends('security')" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">Güvenlik</button>
+                        <button onclick="filterTrends('quantum')" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">Kuantum</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="trend-cards">
+                    <!-- Card 1 -->
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-800 trend-card" data-category="ai">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono text-cyan-400 bg-cyan-950/60 px-2.5 py-1 rounded border border-cyan-800/40">AI Agents</span>
+                            <i data-lucide="bot-message-square" class="w-5 h-5 text-slate-400"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Otonom Kod Ajanları</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Yalnızca kod tamamlama değil, tüm JIRA biletini okuyup PR oluşturan ve testini yazan otonom ajanlar ana akım haline geliyor.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-800 trend-card" data-category="security">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono text-emerald-400 bg-emerald-950/60 px-2.5 py-1 rounded border border-emerald-800/40">Security</span>
+                            <i data-lucide="shield-alert" class="w-5 h-5 text-slate-400"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">AI Kod Güvenliği Audit'i</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            AI tarafından üretilen hızlı kodların hallusinasyon ile oluşturduğu gizli güvenlik açıklarını tarayan özel siber güvenlik uzmanlıkları doğuyor.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-800 trend-card" data-category="quantum">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono text-purple-400 bg-purple-950/60 px-2.5 py-1 rounded border border-purple-800/40">Quantum</span>
+                            <i data-lucide="atom" class="w-5 h-5 text-slate-400"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Kuantum-Hibrit Algoritmalar</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Klasik yazılım mühendisliği ile kuantum hesaplama kütüphanelerinin entegrasyonu, finans ve kriptografi alanında çığır açacak.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#05070d] border-t border-slate-800/80 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-indigo-600/20 border border-indigo-500/40 rounded-lg text-indigo-400">
+                    <i data-lucide="cpu" class="w-5 h-5"></i>
+                </div>
+                <span class="text-sm font-bold text-white">DevFuture 2030 Platformu</span>
+            </div>
+            <p class="text-xs text-slate-400 text-center">
+                Yazılım geliştiricilerin yapay zeka çağındaki geleceğini keşfetmek için tasarlanmıştır. © 2026
+            </p>
+            <div class="flex space-x-4 text-slate-400">
+                <a href="#" class="hover:text-indigo-400 text-xs transition-colors">Gizlilik</a>
+                <a href="#" class="hover:text-indigo-400 text-xs transition-colors">İletişim</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Synergy Chart Logic
+        let synergyChart;
+        function initSynergyChart() {
+            const ctx = document.getElementById('synergyChart').getContext('2d');
+            synergyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Boilerplate Kod', 'Sistem Mimarisi', 'Debugging & Test', 'Kullanıcı Deneyimi'],
+                    datasets: [
+                        {
+                            label: 'AI Otomasyonu (%)',
+                            data: [90, 30, 75, 40],
+                            backgroundColor: 'rgba(6, 182, 212, 0.75)',
+                            borderColor: '#06b6d4',
+                            borderWidth: 1,
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'İnsan Stratejisi (%)',
+                            data: [10, 70, 25, 60],
+                            backgroundColor: 'rgba(99, 102, 241, 0.75)',
+                            borderColor: '#6366f1',
+                            borderWidth: 1,
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#94a3b8', font: { size: 11 } }
+                        },
+                        y: {
+                            stacked: true,
+                            max: 100,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#94a3b8', font: { size: 11 } }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: '#cbd5e1', font: { size: 12 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Radar Chart Logic
+        function initSkillsRadarChart() {
+            const ctx = document.getElementById('skillsRadarChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Sistem Mimarisi', 
+                        'AI Prompt Eng.', 
+                        'Siber Güvenlik', 
+                        'Domain Bilgisi', 
+                        'Manuel Syntax Kodlama'
+                    ],
+                    datasets: [{
+                        label: '2030 Yetkinlik Önemi',
+                        data: [95, 90, 85, 88, 25],
+                        fill: true,
+                        backgroundColor: 'rgba(99, 102, 241, 0.25)',
+                        borderColor: '#6366f1',
+                        pointBackgroundColor: '#22d3ee',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#6366f1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            pointLabels: { color: '#cbd5e1', font: { size: 10 } },
+                            ticks: { display: false, max: 100 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // Dynamic Sliders update logic
+        function setupSliderListeners() {
+            const inputs = ['task-1', 'task-2', 'task-3', 'task-4'];
+            inputs.forEach((id, index) => {
+                const slider = document.getElementById(id);
+                slider.addEventListener('input', (e) => {
+                    const aiVal = parseInt(e.target.value);
+                    const humanVal = 100 - aiVal;
+                    
+                    // Update label
+                    const label = document.getElementById(`label-${id}`);
+                    label.textContent = `%${aiVal} AI / %${humanVal} İnsan`;
+
+                    // Update chart
+                    synergyChart.data.datasets[0].data[index] = aiVal;
+                    synergyChart.data.datasets[1].data[index] = humanVal;
+                    synergyChart.update();
+                });
+            });
+        }
+
+        // Quiz Logic
+        let quizAnswers = {};
+        function nextQuizStep(currentStep, answer) {
+            quizAnswers[currentStep] = answer;
+            document.getElementById(`quiz-step-${currentStep}`).classList.add('hidden');
+            const next = currentStep + 1;
+            const nextElem = document.getElementById(`quiz-step-${next}`);
+            if (nextElem) {
+                nextElem.classList.remove('hidden');
+            }
+        }
+
+        function finishQuiz(defaultRole) {
+            document.getElementById('quiz-step-3').classList.add('hidden');
+            const resultElem = document.getElementById('quiz-result');
+            resultElem.classList.remove('hidden');
+
+            const titleElem = document.getElementById('result-role-title');
+            const descElem = document.getElementById('result-role-desc');
+
+            if (quizAnswers[1] === 'sec') {
+                titleElem.textContent = "Cyber-Resilience & AI Safety Engineer";
+                descElem.textContent = "AI tarafından üretilen sistemlerin güvenliğini sağlayan, zafiyetleri kapatan ve kırılmaz altyapılar tasarlayan uzman.";
+            } else if (quizAnswers[1] === 'ux') {
+                titleElem.textContent = "AI Product Experience Architect";
+                descElem.textContent = "İnsan ihtiyaçlarını yapay zeka yetenekleriyle harmanlayarak kusursuz dijital ürünler kurgulayan stratejist.";
+            } else {
+                titleElem.textContent = "Autonomous Agent Orchestrator";
+                descElem.textContent = "Çoklu yapay zeka ajan ordusunu yöneten, sistem kalitesini ve iş mantığı doğruluğunu denetleyen lider geliştirici.";
+            }
+        }
+
+        function resetQuiz() {
+            quizAnswers = {};
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-step-1').classList.remove('hidden');
+        }
+
+        // Trend Filters
+        function filterTrends(category) {
+            const cards = document.querySelectorAll('.trend-card');
+            const buttons = document.querySelectorAll('#trend-filters button');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('bg-slate-800', 'text-slate-300');
+            });
+            event.target.classList.remove('bg-slate-800', 'text-slate-300');
+            event.target.classList.add('bg-indigo-600', 'text-white');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // On Load Initializations
+        window.onload = function() {
+            initSynergyChart();
+            initSkillsRadarChart();
+            setupSliderListeners();
+        };
+    </script>
+</body>
+</html>
